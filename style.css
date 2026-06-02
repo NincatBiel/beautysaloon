@@ -87,7 +87,7 @@ nav {
   display: grid;
   gap: 2rem;
   li:hover{
-    text-decoration: underline; color: var(--base-color); /*add isso*/
+    color: var(--base-color); /*add isso==========================================to perdido kk*/
   }
 }
 
@@ -255,8 +255,8 @@ nav .menu ul {
   gap: 2rem;
 }
 
-nav .menu ul li a.title {
-  font: 400 1rem var(--body-font);
+nav .menu ul li a.title { /*aqui se mexe no texto do header*/
+  font: 400 35px var(--body-font);
   -webkit-font-smoothing: antialised;
 }
 
