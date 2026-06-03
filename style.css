@@ -16,13 +16,14 @@ a {
 img {
   width: 100%;
   height: auto;
+  display: block;
 }
 /* ======= VARIABLE ============================ */
 :root {
   --header-height: 4.5rem;
 
   /* Colors */
-  --hue: 159;
+  --hue: 159; /*aqui muda a cor*/
   /* HSL color mode */
   --base-color: hsl(var(--hue) 36% 57%);
   --base-color-second: hsl(var(--hue) 65% 88%);
@@ -30,7 +31,7 @@ img {
   --title-color: hsl(var(--hue) 41% 10%);
   --text-color: hsl(0 0% 46%);
   --text-color-light: hsl(0 0% 98%);
-  --body-color: hsl(0 0% 98%);
+  --body-color: --body-color: #f9f9f9;
 
   /* FONTS */
   --title-font-size: 1.875rem;
@@ -53,7 +54,7 @@ body {
 }
 
 .header {
-  border-bottom: 1px solid #e4e4e4;
+  border-bottom: 3px solid red;
   width: 100%;
   position: fixed;
   top: 0;
@@ -69,7 +70,6 @@ nav {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.274);
 }
 
 .logo {
@@ -86,15 +86,15 @@ nav {
 .grid {
   display: grid;
   gap: 2rem;
-  li:hover{
-    color: var(--base-color); /*add isso==========================================to perdido kk*/
-  }
 }
 
 
 .container {
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
+  max-width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .toggle {
@@ -141,6 +141,10 @@ nav {
 }
 .divider-2 {
   background: linear-gradient(270deg, hsla(var(--hue), 65%, 88%, 0.34), hsla(var(--hue), 36%, 57%, 1));
+}
+
+#home {
+  padding-top: calc(8rem + var(--header-height));
 }
 
 #home .image,
@@ -253,16 +257,47 @@ nav .menu {
 nav .menu ul {
   display: flex;
   gap: 2rem;
+  
 }
 
-nav .menu ul li a.title { /*aqui se mexe no texto do header*/
-  font: 400 35px var(--body-font);
+nav .menu ul li {
+  position: relative;
+}
+
+nav .menu ul li a.title { /*aqui se mexe no texto do header, eu acho*/
+  font: 400 20px var(--body-font);
   -webkit-font-smoothing: antialised;
+  position: relative;
+}
+
+nav .menu ul li a.title:hover{ /*tem que ser aqui, não pode botar dentro do termo anterior*/
+  color: var(--base-color);
+}
+
+/*traço embaixo do nome*/
+nav .menu ul li a.title::after{
+  content: "";
+  width: 0%; /*início da animação*/
+  height: 2px;
+  background-color: var(--base-color);
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  transition: width 0.3s ease; /*finalização da animação*/
 }
 
 nav ul li a.title.active {
   font-weight: bold;
   -webkit-font-smoothing: auto;
+  
+}
+
+nav .menu ul li a.title:hover::after {
+  width: 100%;
+}
+
+nav .menu ul li a.title.active::after {
+  width: 100%;
 }
 
 nav .icon-menu {
@@ -277,9 +312,8 @@ main {
 /* home */
 
 #home .container {
-  grid-auto-flow: column;
-  justify-content: space-between;
-  margin: 0 auto;
+  grid-template-columns: 1fr 1fr; /* explícito, robusto */
+  gap: 4rem;
 }
 
 #home .image {
@@ -294,10 +328,10 @@ main {
 
 /* about */
 #about .container {
-  margin: 0 auto;
-  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 4rem;
 }
-
 #about .text{ /*copiei do "#home.text" pra facilitar*/
   order: 0;
   text-align: left;
@@ -341,8 +375,44 @@ footer .container {
   justify-content: space-between;
 }
 
+footer .social a:hover {
+  transform: translateY(-5px); /* era -8px, agora -5px */
+}
+
 footer .logo {
   font-size: 2.25rem;
+}
+
+/* ======= BACK TO TOP ============================ */
+.back-to-top {
+  background: var(--base-color);
+  color: white;
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 99;
+}
+
+.back-to-top:hover {
+  background: var(--base-color-alt);
+  transform: translateY(-3px);
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* large devices: 1023 > */
